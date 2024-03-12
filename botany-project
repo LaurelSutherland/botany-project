@@ -5,3 +5,16 @@
 Data will include a subset of the genes from the original “One thousand plant transcriptomes and the phylogenomics of green plants” study (2019) https://doi.org/10.1038/s41586-019-1693-2 to create a gene tree of the species included in this study to examine the predicted evolutionary history of these major clades. 
 Data is currently composed of pre-aligned transcriptomes for each gene listed by species in their own FASTA file. There are 410 subsets (genes) within the original dataset and I expect to select a smaller dataset of genes from this original set to formulate a more manageable project for this class.
 
+
+###Multiple Sequence Alignment Methods
+For the purpose of comparison, we are required to utilize two different MSA methods on our dataset. I selected MUSCLE and KALIGN.
+MUSCLE only uses a global alignment method, which makes it useful for more distantly-related sequences. In a dataset of species that are theoretically evolutionarily quite different, this would be a valuable trait.It also utilizes progressive alignment which is thought to produce a better SP (sum-of-pairs) score. The UPGMA tree construction assumes a constant mutation rate which assists in the significantly increased speed of this method. MUSCLE is also considered a relatively accurate method. 
+Below is an example of the code used to align one gene, 4471. This same method will be applied to all genes.
+```
+muscle -in 4471.fasta -out 4471-muscle.afa
+```
+KALIGN is a fast alignment method that is ideal for a dataset with a large number of sequences, such as this one. It is capable of removing gaps from already-aligned sequences, as this dataset was from the study it was sourced from, and realigns it using a Wu-Manber string-matching algorithm. It automatically detects that the dataset is composed of DNA.
+Below is an example of the code used to align one gene, 4471. This same method will be applied to all genes.
+```
+kalign -in 4471.fasta -out 4471-kalign.asa
+```
