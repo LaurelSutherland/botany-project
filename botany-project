@@ -1325,3 +1325,61 @@ Date and Time: Sun Mar 31 16:57:18 2024
 ```
 The same process is repeated for the KALIGN MSA of the same gene and for three other genes selected for this project.
 
+
+
+###Bayesian Inference
+Bayesian inference conducted using Mr. Bayes.
+```
+sudo apt-get update
+sudo apt-get -y install libmrpt-bayes2.4
+```
+Beagle was not working so I installed beagle to /usr/bin and added it to the PATH by adding the location to the .bashrc file.
+```
+sudo apt-get update
+sudo apt-get -y install beagle
+nano .bashrc
+	export PATH=$PATH:/usr/bin 
+```
+Convert my data from a FASTA file to a NEXUS file. I had to install pip first before installing seqconverter. See an example of converting the MUSCLE MSA of gene 4471 from FASTA to NEXUS.
+```
+sudo apt install python3-pip
+python3 -m pip install seqconverter
+seqconverter --informat fasta --outformat nexus -i ~/Downloads/genes_FAA/4471/4471-MUSCLE/4471-muscle.fa > 4471-muscle.nexus
+```
+I create a Mr. Bayes text block in a separate text file in the same file as the MSA NEXUS file called mbblock.txt.
+```
+nano mbblock.txt
+```
+In the text file:
+```
+begin mrbayes;
+ set autoclose=yes;
+ prset brlenspr=unconstrained:exp(10.0);
+ prset shapepr=exp(1.0);
+ prset tratiopr=beta(1.0,1.0);
+ prset statefreqpr=dirichlet(1.0,1.0,1.0,1.0);
+ lset nst=2 rates=gamma ngammacat=4;
+ mcmcp ngen=1000000 samplefreq=10 printfreq=100 nruns=1 nchains=3 savebrlens=yes;
+ outgroup FOMH;
+ mcmc;
+ sumt;
+end;
+```
+I then append this to the end of the NEXUS file, 4471-muscle.nexus for example here.
+```
+cat 4471-muscle.nexus mbblock.txt > 4471-muscle-mb.nexus
+```
+Now, run Mr. Bayes.
+```
+mb 4471-muscle-mb.nexus
+```
+The same process is repeated for the KALIGN file of the same gene and the other subset of genes chosen for this project.
+
+
+
+
+
+
+
+
+
