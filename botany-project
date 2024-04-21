@@ -1376,6 +1376,25 @@ mb 4471-muscle-mb.nexus
 The same process is repeated for the KALIGN file of the same gene and the other subset of genes chosen for this project.
 
 
+ 
+###Co-Estimation Method
+I chose to perform coestimation using ASTRAL of a subset of genes from the genes examined in the original study. ASTRAL is a software that is used to infere species trees from a set of individual gene trees while accounting for gene tree discordance. ASTRAL assumes there will be some gene tree discordance from the true species tree and newer versions may remove branches with lower branch support from consideration as it assumes this improves accuracy. Some strengths of ASTRAL include statistical consistency so that as the number of genes increases it continues to converge to the true species tree, scalability to handle large data sets with many species and genes, and high relative accuracy. ASTRAL is limited by the quality of gene tree input, reliance on modern organisms so that incomplete data sets can alter results, and lower accuracy in areas of low branch support. Users can choose to exclude low-support branches using bootstrap.
+
+Install ASTRAL by downloading the zip file and extracting the contents. For me, I download and extract all software to ~/Downloads/Programs. ASTRAL can be run from any directory with:
+```
+java -jar ~/Downloads/Programs/Astral.5.7.8/Astral/astral.5.7.8.jar
+```
+To execute:
+```
+java -jar ~/Downloads/Programs/Astral.5.7.8/astral.5.7.8.jar -i in.tree -o out.tre 2>out.log
+```
+Note that in.tree is the input gene trees in Newick format in one file, which can have missing taxa or unresolved branch lengths. Note that out.tre is the output file and the parameter 2>out.log will save the results in a file. Output of ASTRAL should be treated as an unrooted tree.
+It is important to score a completed ASTRAL tree. Use the -q option to score a species tree and produce its quartet score, compute branch lengths, and compute ASTRAL branch support values. The score is converted into a normalized quartet score (a fraction of the induced quartet trees in the input set that are in the species tree). Ex: A score of 0.9 means 90% of the quarted trees induced by the gene trees are in the final species tree.
+Run the commands below and receive a Final Quarted Score and a Final Normalized Quarted Score:
+``` java -jar ~/Downloads/Programs/Astral.5.7.8/Astral/astral.5.7.8.jar -i in.tree -q out.tre -o scored_out.tre 2> scored_out.log
+```
+I do not yet have my own data compiled into one Newick file as my datasets are quite large and are still being run through the Maximum Likelihood method (iqtree), but when that is done, 1 file will be created with all of the MUSCLE data and 1 for the KALIGN data and they will be run through ASTRAL using the above code.
+
 
 
 
