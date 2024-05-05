@@ -11,4 +11,3 @@
 |T-Coffee (MSA)|uses a progressive alignment strategy to consider alignments between all pairs from a library of alignments|builds on ClustalW and other programs to create a more accurate tree|slower than ClustalW, cannot remove preexisting gaps, overweights small segments|this weighting scheme tolerates noise from small similar segments arising due to chance better|This is my preferred method. Also, able to run mcoffee to compare multiple methods at once.|
 |--------|-----------|---------|----------|-----------|------------|
 |MUSCLE (MSA)|calculates two distance measures for a pair of sequences and cluster distance matrices to create phylogeny|fastest and most accurate|not consistently the most accurate, have to look at results carefully|the program will find the global optimal tree each time||
-

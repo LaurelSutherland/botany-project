@@ -52,6 +52,7 @@ ADD INFO ABOUT PERFORMING DISTANCE
 > length(D)
 [1] 475800
 ````
+```
 It all went wrong after this and I was unable to complete the tree.
 
 
@@ -1323,7 +1324,7 @@ Analysis results written to:
 
 Date and Time: Sun Mar 31 16:57:18 2024
 ```
-The same process is repeated for the KALIGN MSA of the same gene and for three other genes selected for this project.
+The same process is repeated for the KALIGN MSA of the same gene and for the other genes selected for this project.
 
 
 
